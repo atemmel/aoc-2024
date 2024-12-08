@@ -1,0 +1,15 @@
+#!/bin/cherry
+
+input := (cat src/01-input.txt)
+
+say $input
+
+lhs := []
+rhs := []
+
+append-left := true
+input-start := 0
+
+for i := 0; (< $i len($input)) ; $i = $i + 1 {
+    
+}
