@@ -4,12 +4,42 @@ input := (cat src/01-input.txt)
 
 say $input
 
-lhs := []
-rhs := []
+left  := []
+right := []
 
 append-left := true
 input-start := 0
 
-for i := 0; (< $i len($input)) ; $i = $i + 1 {
-    
+read-input
+
+say left $left
+say right $right
+
+fn append-next what {
+    if $append-left {
+        $left = (append $left $what)
+        $append-left = false
+    } else {
+        $right = (append $right $what)
+        $append-left = true
+    }
+}
+
+fn read-input {
+    n := (len $input)
+    for i := 0; (< $i $n); $i = (+ $i 1){
+        c := (get $input $i)
+        if (== $c " ") {
+            number := (slice $input $input-start $i)
+            append-next $number
+            $input-start = (+ $i 1)
+        }
+        for (and (< $i $n) (== (get $input $i) " ")) {
+            if (== (get $input $i) "\n") {
+                $input-start = (+ $i 1)
+                break
+            }
+            $i = (+ $i 1)
+        }
+    }
 }
