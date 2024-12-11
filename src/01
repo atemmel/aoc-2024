@@ -20,10 +20,10 @@ say sum of distances is (sum-distance $left $right)
 
 fn append-next what {
     if $append-left {
-        $left = (append $left $what)
+        $left = (append $left (int $what))
         $append-left = false
     } else {
-        $right = (append $right $what)
+        $right = (append $right (int $what))
         $append-left = true
     }
 }
@@ -96,20 +96,18 @@ fn remove list idx {
 
 fn sum-distance a b {
     assert (== (len $a) (len $b))
-
     total-distance := 0
-    n := (len $a)
 
-    for i := 0; (< $i $n); $i = (+ $i 1) {
+    for (< 0 (len $a)) {
         idx-min-a := (index-of-min $a)
         idx-min-b := (index-of-min $b)
         min-a := (get $a $idx-min-a)
         min-b := (get $b $idx-min-b)
-        distance := (- $min-a $min-b)
-        say distance is $distance
 
         $total-distance = (+ $total-distance (abs (- $min-a $min-b)))
-        say sum improved
+
+        $a = (remove $a $idx-min-a)
+        $b = (remove $b $idx-min-b)
     }
 
     return $total-distance
